@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Mayura Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="font-sans bg-gray-100">
+
+    <!-- Header Section -->
+    <header class="bg-gray-900 text-white p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="{{ url_for('static', filename='images/hotel-logo.png') }}" alt="Mayura Hotel Logo" class="h-16">
+            <nav class="space-x-6">
+                <a href="/" class="hover:text-yellow-400">Home</a>
+                <a href="/room-booking" class="hover:text-yellow-400">Rooms</a>
+                <a href="/restaurant" class="hover:text-yellow-400">Restaurant</a>
+                <a href="/party-hall" class="hover:text-yellow-400">Party Hall</a>
+                <a href="/contact" class="hover:text-yellow-400">Contact Us</a>
+                <a href="/feedback" class="hover:text-yellow-400">Feedback</a>
+                <a href="/parking" class="hover:text-yellow-400">Parking</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Login Section -->
+    <section class="py-16 bg-gray-200">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-900">Login</h2>
+            <p class="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+                Enter your details to log in and proceed with booking or other services at Mayura Hotel.
+            </p>
+
+            <!-- Login Form -->
+            <form action="/login" method="POST" class="mt-8 space-y-4 max-w-lg mx-auto">
+                <input type="text" name="name" placeholder="Your Name" class="w-full p-4 border border-gray-300 rounded-lg">
+                <input type="tel" name="phone" placeholder="Your Phone Number" class="w-full p-4 border border-gray-300 rounded-lg">
+                <button type="submit" class="w-full bg-yellow-500 text-black py-2 px-6 rounded-full text-xl hover:bg-yellow-400 transition">Login</button>
+            </form>
+        </div>
+    </section>
+<script>
+    // ================= LOGIN + OTP SYSTEM =================
+document.addEventListener("DOMContentLoaded", function () {
+
+    const loginForm = document.querySelector("form[action='/login']");
+    if (!loginForm) return;
+
+    const nameInput = loginForm.querySelector("input[name='name']");
+    const phoneInput = loginForm.querySelector("input[name='phone']");
+
+    // Create OTP input dynamically (hidden initially)
+    const otpInput = document.createElement("input");
+    otpInput.type = "number";
+    otpInput.placeholder = "Enter OTP";
+    otpInput.className = "w-full p-4 border border-gray-300 rounded-lg hidden";
+    otpInput.id = "otpField";
+
+    loginForm.insertBefore(otpInput, loginForm.querySelector("button"));
+
+    let generatedOTP = null;
+    let otpStage = false;
+
+    loginForm.addEventListener("submit", function (e) {
+
+        // ===== Stage 1 : Validate & Generate OTP =====
+        if (!otpStage) {
+
+            e.preventDefault();
+
+            const name = nameInput.value.trim();
+            const phone = phoneInput.value.trim();
+
+            if (!name || !phone) {
+                alert("❌ Please enter your Name and Phone Number");
+                return;
+            }
+
+            if (phone.length !== 10 || isNaN(phone)) {
+                alert("❌ Enter valid 10-digit phone number");
+                return;
+            }
+
+            // Generate 4-digit OTP
+            generatedOTP = Math.floor(1000 + Math.random() * 9000);
+
+            alert("📲 Your OTP is: " + generatedOTP);
+
+            otpInput.classList.remove("hidden");
+            otpInput.focus();
+
+            otpStage = true;
+            return;
+        }
+
+        // ===== Stage 2 : Verify OTP =====
+        const enteredOTP = otpInput.value.trim();
+
+        if (!enteredOTP) {
+            e.preventDefault();
+            alert("❌ Please enter OTP");
+            return;
+        }
+
+        if (parseInt(enteredOTP) !== generatedOTP) {
+            e.preventDefault();
+            alert("❌ Incorrect OTP. Try again By entering this otp:"+" "+generatedOTP);
+            return;
+        }
+
+        // ===== Success =====
+        alert("✅ Welcome " + nameInput.value + " to Mayura Hotel!");
+
+        // Allow form to submit normally (ONLY name & phone go to backend)
+        otpInput.disabled = true; // prevent OTP from submitting
+
+    });
+
+});
+
+</script>
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2026 Mayura Hotel. All rights reserved.</p>
+            <p class="mt-2">Follow us on:</p>
+            <div class="space-x-6 mt-4">
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Facebook</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Twitter</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

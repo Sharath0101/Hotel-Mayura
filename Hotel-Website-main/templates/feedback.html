@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Mayura Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="font-sans bg-gray-100">
+
+    <!-- Header Section -->
+    <header class="bg-gray-900 text-white p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="{{ url_for('static', filename='images/hotel-logo.png') }}" alt="Mayura Hotel Logo" class="h-16">
+            <nav class="space-x-6">
+                <a href="/" class="hover:text-yellow-400">Home</a>
+                <a href="/room-booking" class="hover:text-yellow-400">Rooms</a>
+                <a href="/restaurant" class="hover:text-yellow-400">Restaurant</a>
+                <a href="/party-hall" class="hover:text-yellow-400">Party Hall</a>
+                <a href="/contact" class="hover:text-yellow-400">Contact Us</a>
+                <a href="/feedback" class="hover:text-yellow-400">Feedback</a>
+            <a href="/parking" class="hover:text-yellow-400">Parking</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Feedback Section -->
+    <section class="py-16 bg-gray-200">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-900">We Value Your Feedback</h2>
+            <p class="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+                At Mayura Hotel, we strive to provide the best service. Please share your feedback so we can improve and serve you better.
+            </p>
+        </div>
+    </section>
+
+    <!-- Feedback Form Section -->
+    <section class="py-16">
+        <div class="container mx-auto text-center">
+            <h3 class="text-3xl font-bold text-gray-900">Submit Your Feedback</h3>
+            <p class="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+                We would love to hear about your experience. Let us know how we can improve and what you enjoyed during your stay.
+            </p>
+
+            <form action="/feedback" method="POST" class="mt-8 space-y-4 max-w-xl mx-auto">
+                <input type="text" name="customer_id" placeholder="Your ID (if applicable)" class="w-full p-4 border border-gray-300 rounded-lg">
+                <textarea name="message" placeholder="Your Feedback" class="w-full p-4 border border-gray-300 rounded-lg" rows="6"></textarea>
+                <button type="submit" class="w-full bg-yellow-500 text-black py-2 px-6 rounded-full text-xl hover:bg-yellow-400 transition">Submit Feedback</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="py-16 bg-gray-200">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-900">Customer Reviews</h2>
+            <p class="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+                See what our guests have to say about their experience at Mayura Hotel. We pride ourselves on providing top-notch service and unforgettable stays.
+            </p>
+        </div>
+    </section>
+
+  <!-- Reviews Section -->
+    <section class="bg-gray-100 py-16">
+        <div class="container mx-auto text-center">
+            <div class="mt-8 space-y-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-lg text-gray-600">"The experience at Mayura was exceptional! The rooms were luxurious and the food was outstanding. Highly recommend!"</p>
+                    <p class="mt-2 font-semibold text-gray-800">- Deekshith S</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-lg text-gray-600">"Great place for events. We held our wedding here, and the staff was incredibly helpful. The party hall was perfect!"</p>
+                    <p class="mt-2 font-semibold text-gray-800">- Sarah Smith</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+  <p class="text-lg text-gray-600">
+    "Excellent hospitality and very clean rooms. The staff was polite and always ready to help. Truly a luxury experience."
+  </p>
+  <p class="mt-2 font-semibold text-gray-800">- Rahul Verma</p>
+</div>
+
+<div class="bg-white p-6 rounded-lg shadow-lg">
+  <p class="text-lg text-gray-600">
+    "The restaurant food was delicious and served on time. Loved the ambience and overall service at Mayura Hotel."
+  </p>
+  <p class="mt-2 font-semibold text-gray-800">- Ananya Rao</p>
+</div>
+
+<div class="bg-white p-6 rounded-lg shadow-lg">
+  <p class="text-lg text-gray-600">
+    "Perfect stay for family trips. Spacious rooms, great location, and very smooth booking process."
+  </p>
+  <p class="mt-2 font-semibold text-gray-800">- Karthik N</p>
+</div>
+
+            </section>
+    
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form[action='/feedback']");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const customerId = form.querySelector("input[name='customer_id']").value.trim();
+    const message = form.querySelector("textarea[name='message']").value.trim();
+
+    if (!message) {
+      alert("❌ Please enter your feedback before submitting.");
+      return;
+    }
+
+    if (message.length < 10) {
+      alert("❌ Feedback is too short. Please describe your experience briefly.");
+      return;
+    }
+
+    alert(
+      "✅ Feedback Submitted Successfully!\n\n" +
+      "Thank you for sharing your experience with Mayura Hotel.\n" +
+      "Your feedback helps us improve our services."
+    );
+
+    form.reset();
+  });
+});
+</script>
+
+    
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2026 Mayura Hotel. All rights reserved.</p>
+            <p class="mt-2">Follow us on:</p>
+            <div class="space-x-6 mt-4">
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Facebook</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Twitter</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

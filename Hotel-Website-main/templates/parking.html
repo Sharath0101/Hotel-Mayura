@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Mayura Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="font-sans bg-gray-100">
+
+    <!-- Header Section -->
+    <header class="bg-gray-900 text-white p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="{{ url_for('static', filename='images/hotel-logo.png') }}" alt="Mayura Hotel Logo" class="h-16">
+            <nav class="space-x-6">
+                <a href="/" class="hover:text-yellow-400">Home</a>
+                <a href="/room-booking" class="hover:text-yellow-400">Rooms</a>
+                <a href="/restaurant" class="hover:text-yellow-400">Restaurant</a>
+                <a href="/party-hall" class="hover:text-yellow-400">Party Hall</a>
+                <a href="/contact" class="hover:text-yellow-400">Contact Us</a>
+                <a href="/feedback" class="hover:text-yellow-400">Feedback</a>
+            <a href="/parking" class="hover:text-yellow-400">Parking</a>
+            </nav>
+        </div>
+    </header>
+
+
+<!-- Intro -->
+<section class="py-16 bg-gray-200 text-center">
+    <h2 class="text-4xl font-bold text-gray-900">Secure Parking Facility</h2>
+    <p class="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+        Mayura Hotel offers safe, spacious, and well-monitored parking facilities for both guests and visitors.
+    </p>
+</section>
+
+<!-- FULL WIDTH PARKING IMAGE -->
+<section>
+  <img src="https://images.unsplash.com/photo-1506521781263-d8422e82f27a"
+       alt="Parking Area"
+       class="w-full h-96 object-cover">
+</section>
+
+<!-- SLOT & PRICE INFO -->
+<section class="py-12 bg-gray-100 text-center">
+  <h2 class="text-3xl font-bold mb-4">Parking & Charging Information</h2>
+
+  <p class="text-lg mb-4">
+    🚗 <strong>70 Parking Slots Available</strong> <br>
+    🔌 <strong>10 EV Charging Slots Available</strong><br>
+  <strong>First Come First Serve</strong><br>
+  <strong>24/7 Security</strong>
+</p>
+
+  <div class="max-w-2xl mx-auto text-left bg-white p-6 rounded shadow">
+    <h3 class="text-xl font-semibold mb-2">Parking Prices</h3>
+    <p>Two Wheeler: ₹30/hr | ₹200/day</p>
+    <p>Car: ₹50/hr | ₹300/day</p>
+
+    <h3 class="text-xl font-semibold mt-4 mb-2">Charging Price</h3>
+    <p>₹70/hr</p>
+  </div>
+</section>
+
+<!-- BOOKING FORM -->
+<section class="py-16 bg-gray-200">
+  <div class="container mx-auto max-w-xl bg-white p-8 rounded shadow">
+    <h3 class="text-2xl font-bold text-center mb-6">Reserve Parking / Charging Slot</h3>
+
+    <form id="parkingForm" class="space-y-4">
+
+      <input type="text" id="userName" placeholder="Your Name"
+             class="w-full p-3 border rounded">
+
+      <input type="tel" id="userPhone" placeholder="Phone Number"
+             class="w-full p-3 border rounded">
+
+      <!-- Parking or Charging -->
+      <select id="serviceType" class="w-full p-3 border rounded">
+        <option value="">Select Service</option>
+        <option value="Parking">Parking</option>
+        <option value="Charging">Charging</option>
+      </select>
+
+      <!-- Vehicle Type -->
+      <select id="vehicleType" class="w-full p-3 border rounded">
+        <option value="">Select Vehicle</option>
+        <option value="Two Wheeler">Two Wheeler</option>
+        <option value="Car 5 Seater">Car (5 Seater)</option>
+        <option value="Car 8 Seater">Car (8 Seater)</option>
+      </select>
+
+      <input type="date" id="bookingDate"
+             class="w-full p-3 border rounded">
+
+      <input type="time" id="bookingTime"
+             class="w-full p-3 border rounded">
+
+      <button type="submit"
+              class="w-full bg-yellow-500 hover:bg-yellow-400 py-3 font-semibold">
+        Confirm Booking
+      </button>
+
+    </form>
+  </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const form = document.getElementById("parkingForm");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("userName").value.trim();
+    const phone = document.getElementById("userPhone").value.trim();
+    const service = document.getElementById("serviceType").value;
+    const vehicle = document.getElementById("vehicleType").value;
+    const date = document.getElementById("bookingDate").value;
+    const time = document.getElementById("bookingTime").value;
+
+    if (!name || !phone || !service || !vehicle || !date || !time) {
+      alert("❌ Please fill all required fields.");
+      return;
+    }
+
+    if (phone.length < 10) {
+      alert("❌ Please enter a valid phone number.");
+      return;
+    }
+
+    alert(
+      "✅ Booking Request Submitted Successfully!\n\n" +
+      "Service: " + service + "\n" +
+      "Vehicle: " + vehicle + "\n" +
+      "Date: " + date + "\n" +
+      "Time: " + time + "\n\n" +
+      "Our team will contact you shortly to confirm your slot availability."
+    );
+
+    form.reset();
+  });
+
+});
+</script>
+
+<!-- Footer Section -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2026 Mayura Hotel. All rights reserved.</p>
+            <p class="mt-2">Follow us on:</p>
+            <div class="space-x-6 mt-4">
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Facebook</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Twitter</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+

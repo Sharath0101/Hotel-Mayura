@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Mayura Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="font-sans bg-gray-100">
+
+    <!-- Header Section -->
+    <header class="bg-gray-900 text-white p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="{{ url_for('static', filename='images/hotel-logo.png') }}" alt="Mayura Hotel Logo" class="h-16">
+            <nav class="space-x-6">
+                <a href="/" class="hover:text-yellow-400">Home</a>
+                <a href="/room-booking" class="hover:text-yellow-400">Rooms</a>
+                <a href="/restaurant" class="hover:text-yellow-400">Restaurant</a>
+                <a href="/party-hall" class="hover:text-yellow-400">Party Hall</a>
+                <a href="/contact" class="hover:text-yellow-400">Contact Us</a>
+                <a href="/feedback" class="hover:text-yellow-400">Feedback</a>
+            <a href="/parking" class="hover:text-yellow-400">Parking</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-96 bg-cover bg-center" style="background-image: url('{{ url_for('static', filename='images/hotel-image1.jpg') }}');">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="relative z-10 text-center text-white">
+            <h1 class="text-5xl font-bold">Welcome to Mayura Hotel</h1>
+            <p class="mt-4 text-xl">Experience luxury, comfort, and world-class service</p>
+            <a href="/room-booking" class="mt-8 inline-block bg-yellow-500 text-black py-2 px-6 rounded-full text-xl hover:bg-yellow-400 transition">Book a Room</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-16 bg-gray-200">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-900">About Us</h2>
+            <p class="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+                Mayura Hotel offers a luxurious experience with premium rooms, exceptional dining, and world-class service. Whether you're here for business or leisure, we aim to provide you with the best stay possible. Enjoy our elegant rooms, exquisite restaurant, and beautiful event spaces.
+            </p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-900">Our Features</h2>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <img src="{{ url_for('static', filename='images/restaurant-image.jpg') }}" alt="Restaurant" class="w-full h-48 object-cover rounded-t-lg">
+                    <h3 class="text-2xl font-bold mt-4">Restaurant</h3>
+                    <p class="mt-2 text-gray-600">Enjoy gourmet dining with a variety of dishes crafted by our expert chefs. Book a table and savor an unforgettable meal.</p>
+                    <a href="/restaurant" class="mt-4 inline-block text-yellow-500 font-semibold">Learn More</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <img src="{{ url_for('static', filename='images/room.jpeg') }}" alt="Rooms" class="w-full h-48 object-cover rounded-t-lg">
+                    <h3 class="text-2xl font-bold mt-4">Rooms</h3>
+                    <p class="mt-2 text-gray-600">Our rooms offer the perfect blend of comfort and elegance. Whether you need a single room or a suite, we have options to suit your needs.</p>
+                    <a href="/room-booking" class="mt-4 inline-block text-yellow-500 font-semibold">Book Now</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <img src="{{ url_for('static', filename='images/party-hall-image.jpg') }}" alt="Party Hall" class="w-full h-48 object-cover rounded-t-lg">
+                    <h3 class="text-2xl font-bold mt-4">Party Hall</h3>
+                    <p class="mt-2 text-gray-600">Celebrate your special occasions in our grand party hall, equipped with all the amenities you need for a memorable event.</p>
+                    <a href="/party-hall" class="mt-4 inline-block text-yellow-500 font-semibold">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="bg-gray-100 py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-900">Customer Reviews</h2>
+            <div class="mt-8 space-y-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-lg text-gray-600">"The experience at Mayura was exceptional! The rooms were luxurious and the food was outstanding. Highly recommend!"</p>
+                    <p class="mt-2 font-semibold text-gray-800">- Deekshith S</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-lg text-gray-600">"Great place for events. We held our wedding here, and the staff was incredibly helpful. The party hall was perfect!"</p>
+                    <p class="mt-2 font-semibold text-gray-800">- Sarah Smith</p>
+                </div>
+            </div>
+            <a href="/feedback" class="mt-8 inline-block text-yellow-500 font-semibold">See All Reviews</a>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2026 Mayura Hotel. All rights reserved.</p>
+            <p class="mt-2">Follow us on:</p>
+            <div class="space-x-6 mt-4">
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Facebook</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Twitter</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews - Mayura Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="font-sans bg-gray-100">
+
+    <!-- Header Section -->
+    <header class="bg-gray-900 text-white p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="{{ url_for('static', filename='images/hotel-logo.png') }}" alt="Mayura Hotel Logo" class="h-16">
+            <nav class="space-x-6">
+                <a href="/" class="hover:text-yellow-400">Home</a>
+                <a href="/room-booking" class="hover:text-yellow-400">Rooms</a>
+                <a href="/restaurant" class="hover:text-yellow-400">Restaurant</a>
+                <a href="/party-hall" class="hover:text-yellow-400">Party Hall</a>
+                <a href="/contact" class="hover:text-yellow-400">Contact Us</a>
+                <a href="/feedback" class="hover:text-yellow-400">Feedback</a>
+            <a href="/parking" class="hover:text-yellow-400">Parking</a>
+</nav>
+        </div>
+    </header>
+
+<!-- ================= HERO ================= -->
+<section class="relative">
+  <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
+       class="w-full h-80 object-cover">
+  <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <h2 class="text-4xl text-white font-bold">Mayura Fine Dining</h2>
+  </div>
+</section>
+
+<!-- ================= TABLE BOOKING SECTION ================= -->
+<section class="container mx-auto py-12">
+  <h3 class="text-3xl font-bold mb-6">Book a Table</h3>
+
+  <!-- Date Selection -->
+  <label class="block mb-2 font-semibold">Select Date</label>
+  <input type="date" id="bookingDate"
+         class="p-2 border rounded mb-6">
+
+  <!-- Tables Grid -->
+  <div id="tables"
+       class="grid grid-cols-4 md:grid-cols-5 gap-4 mb-8"></div>
+
+  <!-- Booking Form -->
+  <div class="bg-white p-6 rounded shadow max-w-md">
+    <h4 class="text-xl font-bold mb-3">Booking Details</h4>
+
+    <p id="selectedTable" class="mb-2 text-gray-700">
+      No table selected
+    </p>
+
+    <p id="tablePrice" class="mb-4 text-gray-700"></p>
+
+    <input type="text" id="custName"
+           placeholder="Your Name"
+           class="w-full p-2 border mb-2">
+
+    <input type="tel" id="custPhone"
+           placeholder="Phone Number"
+           class="w-full p-2 border mb-4">
+
+    <input type="tel" id="custEmail"
+           placeholder="Email Address(optional)"
+           class="w-full p-2 border mb-4">
+
+    <button onclick="confirmTableBooking()"
+            class="bg-yellow-500 hover:bg-yellow-400 w-full py-2 font-bold">
+      Book Table
+    </button>
+  </div>
+</section>
+
+
+<!-- ================= MENU ================= -->
+<section class="container mx-auto py-12">
+<h3 class="text-3xl font-bold mb-6">Our Menu</h3>
+
+<div id="menuContainer" class="space-y-12"></div>
+</section>
+
+<!-- ================= ORDER SUMMARY ================= -->
+<section class="bg-gray-900 text-white p-8">
+<div class="max-w-xl mx-auto">
+
+<h3 class="text-2xl font-bold mb-3">Your Order</h3>
+
+<div id="orderList" class="mb-3 text-gray-300">No items selected</div>
+
+<p class="text-xl mb-4">
+Total: ₹<span id="total">0</span>
+</p>
+
+<select id="orderType" class="w-full p-2 text-black mb-3" onchange="handleOrderType()">
+  <option value="restaurant">Order Now (Restaurant)</option>
+  <option value="room">Order From Room</option>
+  <option value="online">Online Order (Home Delivery)</option>
+</select>
+
+
+<div id="roomFields" class="hidden">
+  <input type="text" placeholder="Room Number" class="w-full p-2 mb-2 text-black">
+  <input type="text" placeholder="Floor" class="w-full p-2 mb-2 text-black">
+</div>
+
+<div id="onlineFields" class="hidden">
+  <input type="text" placeholder="Your Name" class="w-full p-2 mb-2 text-black">
+  <input type="tel" placeholder="Phone Number" class="w-full p-2 mb-2 text-black">
+  <textarea placeholder="Delivery Address" class="w-full p-2 mb-2 text-black"></textarea>
+</div>
+
+<!-- Table Number (Restaurant Order) -->
+<div id="tableNumberField" class="hidden">
+  <input type="number"
+         id="orderTableNo"
+         placeholder="Table Number"
+         class="w-full p-2 mb-3 text-black"
+         min="1">
+</div>
+
+<button onclick="placeOrder()"
+        class="w-full bg-yellow-500 hover:bg-yellow-400 text-black py-3 font-bold">
+Order Now
+</button>
+
+</div>
+</section>
+
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+
+/* ================= TABLE BOOKING JS ================= */
+
+// Create 20 tables with different prices
+const tableData = Array.from({ length: 20 }, (_, i) => ({
+  id: i + 1,
+  price:
+    i < 5  ? 200  :
+    i < 10 ? 200  :
+    i < 15 ? 350 : 450,
+  booked: [1, 2, 4, 6, 9, 14, 18].includes(i + 1) // default booked tables
+}));
+
+let selectedTable = null;
+const tableDiv = document.getElementById("tables");
+
+// Render tables
+tableData.forEach(table => {
+  const btn = document.createElement("button");
+  btn.innerText = `Table ${table.id}`;
+
+  btn.className = `
+    p-4 rounded font-bold
+    ${table.booked ? "bg-red-400 cursor-not-allowed" : "bg-green-400"}
+  `;
+
+  btn.onclick = () => {
+    if (table.booked) return;
+
+    selectedTable = table;
+    document.getElementById("selectedTable").innerText =
+      `Selected Table: ${table.id}`;
+
+    document.getElementById("tablePrice").innerText =
+      `Price: ₹${table.price}`;
+  };
+
+  tableDiv.appendChild(btn);
+});
+
+// Confirm booking
+function confirmTableBooking() {
+  const name = document.getElementById("custName").value.trim();
+  const phone = document.getElementById("custPhone").value.trim();
+  const date = document.getElementById("bookingDate").value;
+
+  if (!date) {
+    alert("Please select a date");
+    return;
+  }
+
+  if (!selectedTable) {
+    alert("Please select a table");
+    return;
+  }
+
+  if (!name || !phone) {
+    alert("Please enter your name and phone number");
+    return;
+  }
+
+  alert(
+    `✅ Table ${selectedTable.id} booked successfully!\n` +
+    `Date: ${date}\n` +
+    `Amount: ₹${selectedTable.price}`
+  );
+}
+
+// ================= MENU DATA =================
+const menuData = {
+  "Indian – Veg": [
+    ["Masala Dosa",120,"https://images.unsplash.com/photo-1601050690597-df0568f70950"],
+    ["Idly",60,"https://images.unsplash.com/photo-1589302168068-964664d93dc0"],
+    ["South Indian Raja Thali",250,"https://images.unsplash.com/photo-1626509653291-8d70a6d6a5c1"],
+    ["Veg Pulao",180,"https://images.unsplash.com/photo-1631515242808-497c3fbd3972"]
+  ],
+  "Indian – Non Veg": [
+    ["Chicken Biryani",280,"https://images.unsplash.com/photo-1631515243349-e0cb75fb8d2f"],
+    ["Mutton Biryani",350,"https://images.unsplash.com/photo-1628294895950-9805252327bc"],
+    ["Fish Fry",300,"https://images.unsplash.com/photo-1604908177522-42945c417a2c"],
+    ["Shrimp Fry",320,"https://images.unsplash.com/photo-1601050690117-64b32d3d7b2c"]
+  ],
+  "Chinese": [
+    ["Veg Noodles",180,"https://images.unsplash.com/photo-1585032226651-759b368d7246"],
+    ["Chicken Fried Rice",220,"https://images.unsplash.com/photo-1604908554266-3b3a2e1b1f99"],
+    ["Gobi Manchurian",170,"https://images.unsplash.com/photo-1628294895350-8b5c9c18a25c"]
+  ],
+  "Continental": [
+    ["Grilled Chicken",350,"https://images.unsplash.com/photo-1540189549336-e6e99c3679fe"],
+    ["Veg Pasta",240,"https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb"],
+    ["Caesar Salad",200,"https://images.unsplash.com/photo-1604908177225-63f63b0bba2d"]
+  ],
+  "Italian": [
+    ["Margherita Pizza",300,"https://images.unsplash.com/photo-1601924577970-1d8c2e3aef64"],
+    ["Alfredo Pasta",260,"https://images.unsplash.com/photo-1617196034183-421b4917c92d"],
+    ["Lasagna",320,"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9"]
+  ]
+};
+
+// ================= CART =================
+let cart = {};
+let total = 0;
+
+const menuContainer = document.getElementById("menuContainer");
+
+// ================= BUILD MENU =================
+for (const category in menuData) {
+  let section = `<h4 class="text-2xl font-bold mb-4">${category}</h4>
+                 <div class="grid md:grid-cols-4 gap-6">`;
+
+  menuData[category].forEach(([name, price, img]) => {
+    cart[name] = { qty: 0, price: price };
+
+    section += `
+      <div class="bg-white p-3 rounded text-center">
+        <img src="${img}" class="h-32 w-full object-cover rounded">
+        <h5 class="font-bold mt-2">${name}</h5>
+        <p>₹${price}</p>
+        <div class="flex justify-center gap-3 mt-2">
+          <button onclick="updateQty('${name}',-1)" class="bg-yellow-400 px-3">−</button>
+          <span id="${name}">0</span>
+          <button onclick="updateQty('${name}',1)" class="bg-yellow-400 px-3">+</button>
+        </div>
+      </div>`;
+  });
+
+  section += `</div>`;
+  menuContainer.innerHTML += section;
+}
+
+// ================= UPDATE QTY =================
+function updateQty(item, change) {
+  cart[item].qty += change;
+  if (cart[item].qty < 0) cart[item].qty = 0;
+  document.getElementById(item).innerText = cart[item].qty;
+  renderOrder();
+}
+
+// ================= RENDER ORDER =================
+function renderOrder() {
+  let list = [];
+  total = 0;
+
+  for (let item in cart) {
+    if (cart[item].qty > 0) {
+      list.push(`${item} x ${cart[item].qty}`);
+      total += cart[item].qty * cart[item].price;
+    }
+  }
+
+  document.getElementById("orderList").innerHTML =
+    list.length ? list.join("<br>") : "No items selected";
+  document.getElementById("total").innerText = total;
+}
+
+// ================= ORDER TYPE =================
+function handleOrderType() {
+  const type = document.getElementById("orderType").value;
+
+  const roomFields = document.getElementById("roomFields");
+  const onlineFields = document.getElementById("onlineFields");
+  const tableField = document.getElementById("tableNumberField");
+
+  // Hide all first
+  roomFields.classList.add("hidden");
+  onlineFields.classList.add("hidden");
+  tableField.classList.add("hidden");
+
+  // Show only required section
+  if (type === "room") {
+    roomFields.classList.remove("hidden");
+  }
+
+  if (type === "online") {
+    onlineFields.classList.remove("hidden");
+  }
+
+  if (type === "restaurant") {
+    tableField.classList.remove("hidden");
+  }
+}
+
+
+// ================= PLACE ORDER =================
+function placeOrder() {
+  if (total === 0) {
+    alert("Please select at least one item");
+    return;
+  }
+  alert("✅ Your order has been placed successfully!");
+}
+</script>
+
+<!-- Footer Section -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2026 Mayura Hotel. All rights reserved.</p>
+            <p class="mt-2">Follow us on:</p>
+            <div class="space-x-6 mt-4">
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Facebook</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Twitter</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Instagram</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

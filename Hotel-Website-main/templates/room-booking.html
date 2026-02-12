@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Booking - Mayura Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="font-sans bg-gray-100">
+
+    <!-- Header Section -->
+    <header class="bg-gray-900 text-white p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="{{ url_for('static', filename='images/hotel-logo.png') }}" alt="Mayura Hotel Logo" class="h-16">
+            <nav class="space-x-6">
+                <a href="/" class="hover:text-yellow-400">Home</a>
+                <a href="/room-booking" class="hover:text-yellow-400">Rooms</a>
+                <a href="/restaurant" class="hover:text-yellow-400">Restaurant</a>
+                <a href="/party-hall" class="hover:text-yellow-400">Party Hall</a>
+                <a href="/contact" class="hover:text-yellow-400">Contact Us</a>
+                <a href="/feedback" class="hover:text-yellow-400">Feedback</a>
+            <a href="/parking" class="hover:text-yellow-400">Parking</a>
+ </nav>
+        </div>
+    </header>
+<!---Room booking Section-->
+  
+<section class="py-16 bg-gray-200">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-900">Select Your Preferred Room</h2>
+            <p class="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+                At Mayura Hotel, we offer a variety of rooms to suit your needs.Browse through our options and book your stay with us today!
+            </p>
+        </div>
+    </section>
+
+<section class="py-16 container mx-auto">
+
+  <!-- ROOM TYPE 1 -->
+  <div class="bg-white shadow-lg rounded-lg mb-12 p-6 room-box">
+    <img src="{{ url_for('static', filename='images/room.jpeg') }}" class="w-full h-64 object-cover rounded">
+
+    <h2 class="text-2xl font-bold mt-4">Deluxe Room</h2>
+    <p class="text-gray-700 mt-1">Spacious room, AC, Free WiFi, TV, Queen Bed</p>
+    <p class="mt-2 font-semibold">Price: ₹5000 / night</p>
+
+    <p class="mt-1">
+      Available Rooms:
+      <span class="room-count text-green-600 font-bold">12</span>
+    </p>
+
+    <label class="block mt-3 font-semibold">Select Room Number</label>
+    <select class="room-select border p-2 rounded w-full">
+      <option value="">-- Select Room --</option>
+      <option value="101">101 (Available)</option>
+      <option value="102">102 (Available)</option>
+      <option value="103">103 (Available)</option>
+      <option value="104">104 (Available)</option>
+      <option value="105">105 (Available)</option>
+      <option value="106" disabled>106 (Booked)</option>
+      <option value="107" disabled>107 (Booked)</option>
+      <option value="108">108 (Available)</option>
+      <option value="109">109 (Available)</option>
+      <option value="110">110 (Available)</option>
+      <option value="111">111 (Available)</option>
+      <option value="112">112 (Available)</option>
+    </select>
+
+    <form class="booking-form mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="text" placeholder="Full Name" class="border p-2 rounded" required>
+      <input type="email" placeholder="Email" class="border p-2 rounded" required>
+      <input type="text" placeholder="Phone Number" class="border p-2 rounded" required>
+      <input type="text" placeholder="Address" class="border p-2 rounded" required>
+      <input type="hidden" value="5000">
+      <button class="md:col-span-2 bg-yellow-500 py-2 rounded hover:bg-yellow-400">
+        Book Room
+      </button>
+    </form>
+  </div>
+
+  <!-- ROOM TYPE 2 -->
+  <div class="bg-white shadow-lg rounded-lg mb-12 p-6 room-box">
+    <img src="{{ url_for('static', filename='images/room2.jpeg') }}" class="w-full h-64 object-cover rounded">
+
+    <h2 class="text-2xl font-bold mt-4">Executive Suite</h2>
+    <p class="text-gray-700 mt-1">King Bed, Balcony, Mini Bar, City View</p>
+    <p class="mt-2 font-semibold">Price: ₹7500 / night</p>
+
+    <p class="mt-1">
+      Available Rooms:
+      <span class="room-count text-green-600 font-bold">10</span>
+    </p>
+
+    <label class="block mt-3 font-semibold">Select Room Number</label>
+    <select class="room-select border p-2 rounded w-full">
+      <option value="">-- Select Room --</option>
+      <option value="201">201 (Available)</option>
+      <option value="202">202 (Available)</option>
+      <option value="203">203 (Available)</option>
+      <option value="204">204 (Available)</option>
+      <option value="205">205 (Available)</option>
+      <option value="206">206 (Available)</option>
+      <option value="207" disabled>207 (Booked)</option>
+      <option value="208" disabled>208 (Booked)</option>
+      <option value="209">209 (Available)</option>
+      <option value="210">210 (Available)</option>
+    </select>
+
+    <form class="booking-form mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="text" placeholder="Full Name" class="border p-2 rounded" required>
+      <input type="email" placeholder="Email" class="border p-2 rounded" required>
+      <input type="text" placeholder="Phone Number" class="border p-2 rounded" required>
+      <input type="text" placeholder="Address" class="border p-2 rounded" required>
+      <input type="hidden" value="7500">
+      <button class="md:col-span-2 bg-yellow-500 py-2 rounded hover:bg-yellow-400">
+        Book Room
+      </button>
+    </form>
+  </div>
+
+  <!-- ROOM TYPE 3 -->
+  <div class="bg-white shadow-lg rounded-lg p-6 room-box">
+    <img src="{{ url_for('static', filename='images/room1.jpg') }}" class="w-full h-64 object-cover rounded">
+
+    <h2 class="text-2xl font-bold mt-4">Presidential Suite</h2>
+    <p class="text-gray-700 mt-1">Jacuzzi, Living Area, Ocean View, Luxury Interior</p>
+    <p class="mt-2 font-semibold">Price: ₹10000 / night</p>
+
+    <p class="mt-1">
+      Available Rooms:
+      <span class="room-count text-green-600 font-bold">8</span>
+    </p>
+
+    <label class="block mt-3 font-semibold">Select Room Number</label>
+    <select class="room-select border p-2 rounded w-full">
+      <option value="">-- Select Room --</option>
+      <option value="301">301 (Available)</option>
+      <option value="302">302 (Available)</option>
+      <option value="303">303 (Available)</option>
+      <option value="304">304 (Available)</option>
+      <option value="305" disabled>305 (Booked)</option>
+      <option value="306" disabled>306 (Booked)</option>
+      <option value="307">307 (Available)</option>
+      <option value="308">308 (Available)</option>
+    </select>
+
+    <form class="booking-form mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="text" placeholder="Full Name" class="border p-2 rounded" required>
+      <input type="email" placeholder="Email" class="border p-2 rounded" required>
+      <input type="text" placeholder="Phone Number" class="border p-2 rounded" required>
+      <input type="text" placeholder="Address" class="border p-2 rounded" required>
+      <input type="hidden" value="10000">
+      <button class="md:col-span-2 bg-yellow-500 py-2 rounded hover:bg-yellow-400">
+        Book Room
+      </button>
+    </form>
+  </div>
+
+</section>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.querySelectorAll(".booking-form").forEach(form => {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const box = this.closest(".room-box");
+      const select = box.querySelector(".room-select");
+      const countEl = box.querySelector(".room-count");
+
+      const name = this.querySelector('input[placeholder="Full Name"]').value;
+      const roomNo = select.value;
+      const price = this.querySelector('input[type="hidden"]').value;
+
+      if (!name || !roomNo) {
+        alert("❌ Please fill details and select a room");
+        return;
+      }
+
+      let count = parseInt(countEl.innerText);
+      if (count <= 0) {
+        alert("❌ No rooms available");
+        return;
+      }
+
+      // Update room dropdown
+      const option = select.querySelector(`option[value="${roomNo}"]`);
+      option.textContent = roomNo + " (Booked)";
+      option.disabled = true;
+
+      // Update count
+      countEl.innerText = count - 1;
+
+      alert(
+        "✅ Booking Confirmed!\n\n" +
+        "Name: " + name + "\n" +
+        "Room No: " + roomNo + "\n" +
+        "Price: ₹" + price
+      );
+
+      select.value = "";
+      this.reset();
+    });
+  });
+
+});
+</script>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2026 Mayura Hotel. All rights reserved.</p>
+            <p class="mt-2">Follow us on:</p>
+            <div class="space-x-6 mt-4">
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Facebook</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Twitter</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

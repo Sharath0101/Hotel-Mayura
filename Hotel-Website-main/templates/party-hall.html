@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Party Hall Booking - Mayura Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="font-sans bg-gray-100">
+
+    <!-- Header Section -->
+    <header class="bg-gray-900 text-white p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="{{ url_for('static', filename='images/hotel-logo.png') }}" alt="Mayura Hotel Logo" class="h-16">
+            <nav class="space-x-6">
+                <a href="/" class="hover:text-yellow-400">Home</a>
+                <a href="/room-booking" class="hover:text-yellow-400">Rooms</a>
+                <a href="/restaurant" class="hover:text-yellow-400">Restaurant</a>
+                <a href="/party-hall" class="hover:text-yellow-400">Party Hall</a>
+                <a href="/contact" class="hover:text-yellow-400">Contact Us</a>
+                <a href="/feedback" class="hover:text-yellow-400">Feedback</a>
+            <a href="/parking" class="hover:text-yellow-400">Parking</a>
+ </nav>
+        </div>
+    </header>
+
+    <!-- Party Hall Introduction Section -->
+    <section class="py-16 bg-gray-200">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-900">Book the Party Hall at Mayura Hotel</h2>
+            <p class="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+                Our grand party hall is the perfect venue for your special events. Whether it's a wedding, corporate function, or family celebration, we provide all the amenities for a memorable event.
+            </p>
+        </div>
+    </section>
+
+    <!-- Party Hall Details Section -->
+    <section class="py-16">
+        <div class="container mx-auto text-center">
+            <h3 class="text-3xl font-bold text-gray-900">Party Hall Features</h3>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Hall Image -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <img src="{{ url_for('static', filename='images/party-hall-image.jpg') }}" alt="Party Hall" class="w-full h-64 object-cover rounded-t-lg">
+                </div>
+
+                <!-- Hall Information -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mt-4">Perfect for Every Occasion</h4>
+                    <p class="mt-2 text-gray-600">Our party hall can accommodate up to 200 guests. The hall is equipped with a state-of-the-art sound system, adjustable lighting, and a beautiful ambiance for any type of event.</p>
+                    <ul class="mt-4 space-y-2 text-left">
+                        <li><span class="font-semibold">Category:</span> Medium Party Hall</li>
+                        <li><span class="font-semibold">Price:</span> ₹30,000 per day</li>
+                        <li><span class="font-semibold">Capacity:</span> 200 people</li>
+                        <li><span class="font-semibold">Area:</span> 1500 sq ft</li>
+                        <li><span class="font-semibold">Facilities:</span> Stage, Projector, Sound system, Buffet setup</li>
+                        <li><span class="font-semibold">Booking:</span> Available for weddings, corporate events, parties</li>
+                    </ul>
+                    <a href="#reserve-hall" class="mt-6 inline-block bg-yellow-500 text-black py-2 px-6 rounded-full text-xl hover:bg-yellow-400 transition">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="reserve-hall" class="py-16 bg-gray-100">
+        <div class="container mx-auto text-center">
+            <h3 class="text-3xl font-bold text-gray-900">Reserve the Party Hall</h3>
+            <p class="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+                Ready to host your event at Mayura Hotel? Fill out the form below to book the party hall. We will get back to you with the details.
+            </p>
+
+            <form action="/party-hall" method="POST" class="mt-8 space-y-4">
+                <input type="text" name="name" placeholder="Your Name" class="w-full p-4 border border-gray-300 rounded-lg">
+                <input type="tel" name="phone" placeholder="Your Phone Number" class="w-full p-4 border border-gray-300 rounded-lg">
+                <input type="date" name="event_date" class="w-full p-4 border border-gray-300 rounded-lg">
+                <input type="time" name="event_time" class="w-full p-4 border border-gray-300 rounded-lg">
+                <textarea name="event_details" placeholder="Additional Event Details" class="w-full p-4 border border-gray-300 rounded-lg" rows="4"></textarea>
+                <button type="submit" class="w-full bg-yellow-500 text-black py-2 px-6 rounded-full text-xl hover:bg-yellow-400 transition">Reserve Now</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2026 Mayura Hotel. All rights reserved.</p>
+            <p class="mt-2">Follow us on:</p>
+            <div class="space-x-6 mt-4">
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Facebook</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Twitter</a>
+                <a href="#" class="text-yellow-400 hover:text-yellow-500">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+      <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("#reserve-hall form");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = form.querySelector('input[name="name"]').value.trim();
+    const phone = form.querySelector('input[name="phone"]').value.trim();
+    const date = form.querySelector('input[name="event_date"]').value;
+    const time = form.querySelector('input[name="event_time"]').value;
+
+    if (!name || !phone || !date || !time) {
+      alert("❌ Please fill all required details");
+      return;
+    }
+
+    alert(
+      "✅ Request Submitted!\n\n" +
+      "Thank you for reserving our party hall.\n" +
+      "We will contact you shortly on your provided phone number regarding booking confirmation.\n\n" +
+      "You may also visit Mayura Hotel for further assistance."
+    );
+
+    form.reset();
+  });
+});
+    </script>
+
+  </body>
+</html>
